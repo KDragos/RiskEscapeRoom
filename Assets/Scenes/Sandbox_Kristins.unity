@@ -129,7 +129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &193233877
 Transform:
   m_ObjectHideFlags: 0
@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 380367396}
   - component: {fileID: 380367395}
   - component: {fileID: 380367394}
+  - component: {fileID: 380367398}
   m_Layer: 8
   m_Name: Cube (2)
   m_TagString: Hidden
@@ -456,6 +457,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &380367398
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 380367393}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &389443937
 Prefab:
   m_ObjectHideFlags: 0
@@ -495,21 +511,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 120810269936448314, guid: a5dc79b01e85545448015ea0ec12d5f5,
-        type: 2}
-      propertyPath: m_Parameters.colorGradient.atime1
-      value: 53585
-      objectReference: {fileID: 0}
-    - target: {fileID: 120810269936448314, guid: a5dc79b01e85545448015ea0ec12d5f5,
-        type: 2}
-      propertyPath: m_Parameters.numCapVertices
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 120810269936448314, guid: a5dc79b01e85545448015ea0ec12d5f5,
-        type: 2}
-      propertyPath: m_UseWorldSpace
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a5dc79b01e85545448015ea0ec12d5f5, type: 2}
   m_IsPrefabParent: 0
@@ -548,8 +549,8 @@ MonoBehaviour:
   line: {fileID: 389443938}
   invalidColor: {r: 1, g: 0, b: 0, a: 0.366}
   validColor: {r: 0, g: 1, b: 0.17241383, a: 1}
-  maxDistance: 3
-  minDistance: 0.25
+  maxDistance: 10
+  minDistance: 1
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -557,6 +558,9 @@ MonoBehaviour:
   activateOnTouch: 1
   grabButton: 8192
   grabOnTouch: 0
+  touchSensitivity: 0.65
+  distanceStep: 0.1
+  rotateStep: 10
 --- !u!1 &463910641
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,8 +664,8 @@ MonoBehaviour:
   line: {fileID: 389443938}
   invalidColor: {r: 1, g: 0, b: 0, a: 0.366}
   validColor: {r: 0, g: 1, b: 0.17241383, a: 1}
-  maxDistance: 3
-  minDistance: 0.25
+  maxDistance: 10
+  minDistance: 1
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -669,6 +673,9 @@ MonoBehaviour:
   activateOnTouch: 1
   grabButton: 8192
   grabOnTouch: 0
+  touchSensitivity: 0.65
+  distanceStep: 0.1
+  rotateStep: 10
 --- !u!1 &675647535
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,7 +891,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 799431674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.56, y: 0, z: 2.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1359,7 +1366,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1449405600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.93, y: 0.518, z: 3.16}
+  m_LocalPosition: {x: 0.05, y: 0.518, z: 3.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1381,7 +1388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1469149290
 Transform:
   m_ObjectHideFlags: 0
@@ -1708,6 +1715,7 @@ GameObject:
   - component: {fileID: 1831064315}
   - component: {fileID: 1831064314}
   - component: {fileID: 1831064313}
+  - component: {fileID: 1831064317}
   m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Hidden
@@ -1782,6 +1790,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1831064317
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1831064312}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2100857858
 GameObject:
   m_ObjectHideFlags: 0

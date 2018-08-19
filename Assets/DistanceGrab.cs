@@ -26,66 +26,114 @@ public class DistanceGrab : MonoBehaviour {
     public OVRInput.Button grabButton;
     public bool grabOnTouch = false;
 
+    public float touchSensitivity = 0.2f;
+    [Tooltip("The distance of each step the grabbed object will move forward or backward during swipes.")]
+    public float distanceStep = 0.1f;
+    [Tooltip("The rotation step of the grabbed object.")]
+    public int rotateStep = 10;
+
     private bool isGrabbing = false;
     private GameObject grabbedObject;
+    private Rigidbody grabbedRb;
+    private float currentDistance;
 
     private void Start()
     {
         line.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update () {
+    void FixedUpdate () {
         if(GetActivationButtonDown()) {
-            Debug.Log("Activation button down.");
             if(!line.gameObject.activeInHierarchy) {
                 line.gameObject.SetActive(true);
             }
             line.SetPosition(0, gameObject.transform.position);
-            // if line renderer hits
             RaycastHit hit;
+            // TODO: We might also want to add a teleport check in here too.... 
             if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistance, interactableLayer)) {
-                //teleportLocation = hit.point;
+                // We've hit an object that can be interacted with or grabbed.
                 line.SetPosition(1, hit.point);
-                //line.startColor = validColor;
                 line.endColor = validColor;
 
-                //teleportAimerObject.transform.position = new Vector3(teleportLocation.x, teleportLocation.y + yNudge, teleportLocation.z);
+                if (GetGrabButtonDown()) {
+                    if(grabbedObject != hit.collider.gameObject) {
+                        grabbedObject = hit.collider.gameObject;
+                        grabbedRb = grabbedObject.GetComponent<Rigidbody>();
+                        if(grabbedRb) {
+                            grabbedRb.isKinematic = true;
+                        }
+                        isGrabbing = true;
+                        currentDistance = hit.distance;
+                    }
+                }
+                if (GetGrabButtonUp()) {
+                    DropObject();
+                }
+
             } else {
-                // TODO: We might also want to add a teleport check in here too.... 
-
+                // We've hit something else.
                 line.SetPosition(1, transform.forward * maxDistance + transform.position);
-                //line.startColor = invalidColor;
-
                 line.endColor = invalidColor;
-                
             }
 
-
-            if (GetGrabButton()) {
-                Debug.Log("Grab button down.");
-                // If a raycast hits a grabbable object in the layer mask, grab it.
-            }
         } else {
             if (line.gameObject.activeInHierarchy) {
                 line.gameObject.SetActive(false);
             }
         }
-        if(isGrabbing) {
-            // Track swipes. 
-            // if swipe up, move object further away.
-            // if swipe down, move object closer.
-            // if swipe left, rotate item 90.
-            // if swipe right, rotate item -90.
+        if(!isGrabbing) {
+            if (grabbedRb) {
+                grabbedRb.isKinematic = false;
+                grabbedRb = null;
+            }
+            grabbedObject = null;
+        } else {
+            if (!grabbedRb) {
+                Debug.LogWarning("Attach a rigidbody to the grabbable object.");
+            } else {
+                Vector2 primaryTouchpad = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+
+                var newPos = gameObject.transform.position + (gameObject.transform.forward * currentDistance);
+                grabbedRb.MovePosition(newPos);
+                
+                // Handle rotation changes.
+                if (primaryTouchpad.x > touchSensitivity) {
+                    Quaternion newRot = Quaternion.AngleAxis(rotateStep, Vector3.up) * grabbedRb.rotation;
+                    grabbedRb.MoveRotation(newRot);
+                } else if (primaryTouchpad.x < -touchSensitivity) {
+                    Quaternion newRot = Quaternion.AngleAxis(-rotateStep, Vector3.up) * grabbedRb.rotation;
+                    grabbedRb.MoveRotation(newRot);
+                }
+
+                // Handle distance changes.
+                if (primaryTouchpad.y > touchSensitivity && currentDistance <= maxDistance) {
+                    currentDistance += distanceStep;
+                } else if (primaryTouchpad.y < -touchSensitivity && currentDistance >= minDistance) {
+                    currentDistance -= distanceStep;
+                }
+            }
         }
-        if(GetActivationButtonUp()) {
+        if (!GetGrabButtonDown() && isGrabbing) {
+            DropObject();
+        }
+        if (GetActivationButtonUp()) {
             if (line.gameObject.activeInHierarchy) {
                 line.gameObject.SetActive(false);
             }
         }
 		
 	}
-    
+
+    private void DropObject()
+    {
+        isGrabbing = false;
+        if (grabbedRb) {
+            grabbedRb.isKinematic = false;
+            grabbedRb = null;
+        }
+        grabbedObject = null;
+    }
+
     private bool GetActivationButtonDown()
     {
         if(activateOnTouch) {
@@ -106,12 +154,21 @@ public class DistanceGrab : MonoBehaviour {
         }
     }
 
-    private bool GetGrabButton()
+    private bool GetGrabButtonDown()
     {
         if (grabOnTouch) {
             return OVRInput.Get(ConvertToTouch(grabButton));
         } else {
             return OVRInput.Get(grabButton);
+        }
+    }
+
+    private bool GetGrabButtonUp()
+    {
+        if (grabOnTouch) {
+            return OVRInput.GetUp(ConvertToTouch(grabButton));
+        } else {
+            return OVRInput.GetUp(grabButton);
         }
     }
 
