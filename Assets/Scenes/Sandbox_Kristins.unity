@@ -550,17 +550,22 @@ MonoBehaviour:
   invalidColor: {r: 1, g: 0, b: 0, a: 0.366}
   validColor: {r: 0, g: 1, b: 0.17241383, a: 1}
   maxDistance: 10
+  lineActivationButton: 1024
+  lineActivationOnTouch: 1
   minDistance: 1
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
-  activationButton: 1024
-  activateOnTouch: 1
   grabButton: 8192
   grabOnTouch: 0
   touchSensitivity: 0.65
   distanceStep: 0.1
   rotateStep: 10
+  teleportConfirmButton: 8192
+  teleportLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  fadeTime: 2
 --- !u!1 &463910641
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,17 +670,22 @@ MonoBehaviour:
   invalidColor: {r: 1, g: 0, b: 0, a: 0.366}
   validColor: {r: 0, g: 1, b: 0.17241383, a: 1}
   maxDistance: 10
+  lineActivationButton: 1024
+  lineActivationOnTouch: 1
   minDistance: 1
   interactableLayer:
     serializedVersion: 2
     m_Bits: 256
-  activationButton: 1024
-  activateOnTouch: 1
   grabButton: 8192
   grabOnTouch: 0
   touchSensitivity: 0.65
   distanceStep: 0.1
   rotateStep: 10
+  teleportConfirmButton: 8192
+  teleportLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  fadeTime: 2
 --- !u!1 &675647535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,7 +1567,7 @@ GameObject:
   - component: {fileID: 1594308575}
   m_Layer: 0
   m_Name: OVRCameraRig
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
