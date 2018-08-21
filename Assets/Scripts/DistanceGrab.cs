@@ -60,6 +60,13 @@ public class DistanceGrab : MonoBehaviour {
         if(!player) {
             Debug.LogWarning("Player is not set. Please be sure to tag the player as 'Player'");
         }
+
+        //Invoke("Test", 3f);
+    }
+
+    private void Test()
+    {
+
     }
 
     void FixedUpdate () {
@@ -170,27 +177,19 @@ public class DistanceGrab : MonoBehaviour {
     {
         if(!isMoving) {
             isMoving = true;
-            // fade to black
             StartCoroutine(FadeAndMove(hit));
-            //StartCoroutine(Fade(0, 1));
-            // Move player to hit location + height.
-            //player.transform.position = new Vector3(hit.point.x, player.transform.position.y, hit.point.z);
-
-            // fade up
-            //StartCoroutine(Fade(1, 0));
-            //isMoving = false;
         }
     }
 
     private IEnumerator FadeAndMove(RaycastHit hit)
     {
         // Fade to black.
-        fadeTimeRemaining = fadeTime;
-        while(fadeTimeRemaining > 0 && fadeTimeRemaining <= fadeTime) {
-            fadeTimeRemaining -= Time.deltaTime;
+        fadeTimeRemaining = fadeTime / 2;
+        while (fadeTimeRemaining > 0 && fadeTimeRemaining <= fadeTime) {
+            fadeTimeRemaining -= Time.fixedDeltaTime;
             var percentage = 1 / (fadeTime / fadeTimeRemaining);
-            fader.SetFadeLevel(0 + percentage);
-            yield return new WaitForEndOfFrame();
+            fader.SetFadeLevel(1 - percentage);
+            yield return new WaitForFixedUpdate();
         }
         fader.SetFadeLevel(1);
 
@@ -198,12 +197,12 @@ public class DistanceGrab : MonoBehaviour {
         player.transform.position = new Vector3(hit.point.x, player.transform.position.y, hit.point.z);
 
         // Fade back.
-        fadeTimeRemaining = fadeTime;
+        fadeTimeRemaining = fadeTime / 2;
         while (fadeTimeRemaining > 0 && fadeTimeRemaining <= fadeTime) {
-            fadeTimeRemaining -= Time.deltaTime;
+            fadeTimeRemaining -= Time.fixedDeltaTime;
             var percentage = 1 / (fadeTime / fadeTimeRemaining);
-            fader.SetFadeLevel(0 - percentage);
-            yield return new WaitForEndOfFrame();
+            fader.SetFadeLevel(0 + percentage);
+            yield return new WaitForFixedUpdate();
         }
         fader.SetFadeLevel(0);
 

@@ -129,7 +129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &193233877
 Transform:
   m_ObjectHideFlags: 0
@@ -152,10 +152,10 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7234787, g: 0.010344863, b: 1, a: 1}
   m_Intensity: 5
-  m_Range: 3.8606641
-  m_SpotAngle: 21.421934
+  m_Range: 10
+  m_SpotAngle: 15
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -562,10 +562,12 @@ MonoBehaviour:
   distanceStep: 0.1
   rotateStep: 10
   teleportConfirmButton: 8192
+  teleportConfirmOnTouch: 0
+  teleportOnRelease: 1
   teleportLayer:
     serializedVersion: 2
     m_Bits: 512
-  fadeTime: 2
+  fadeTime: 1
 --- !u!1 &463910641
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,10 +684,12 @@ MonoBehaviour:
   distanceStep: 0.1
   rotateStep: 10
   teleportConfirmButton: 8192
+  teleportConfirmOnTouch: 0
+  teleportOnRelease: 1
   teleportLayer:
     serializedVersion: 2
     m_Bits: 512
-  fadeTime: 2
+  fadeTime: 1
 --- !u!1 &675647535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,7 +1402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1469149290
 Transform:
   m_ObjectHideFlags: 0
@@ -1421,10 +1425,10 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7234787, g: 0.010344863, b: 1, a: 1}
   m_Intensity: 5
-  m_Range: 3.705787
-  m_SpotAngle: 27.77345
+  m_Range: 10
+  m_SpotAngle: 15
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
